@@ -1,0 +1,38 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: python ${{ matrix.python }} (${{ matrix.deps }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python: "3.9"
+            deps: pinned      # the versions that produced results/
+            os: ubuntu-24.04  # Python 3.9 builds are not published for Ubuntu 26.04
+          - python: "3.12"
+            deps: latest
+            os: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - name: Install (pinned)
+        if: matrix.deps == 'pinned'
+        run: |
+          pip install -r requirements-lock.txt
+          pip install --no-deps -e .
+      - name: Install (latest)
+        if: matrix.deps == 'latest'
+        run: pip install -e ".[test]"
+      - name: Lint
+        run: pip install ruff==0.17.5 && ruff check src tests experiments scripts
+      - name: Unit tests
+        run: pytest -q

@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: >-
+  If you use this code, please cite it as below, and cite the CropGlobe
+  benchmark it is built on (Tong & Wang, arXiv:2509.03497).
+title: "Zero-overlap PPI: prediction-powered inference when the labelling probability is zero"
+abstract: >-
+  A reproducible study on CropGlobe of what labels from other countries can
+  say about a country with none: a positivity diagnostic, transported
+  prediction-powered corrections, partial-identification bounds computed by
+  linear programming, and design-based inference from a small sample inside
+  the target.
+authors:
+  - family-names: Bali
+    given-names: Rohan
+version: 0.1.0
+date-released: 2026-11-22
+license: MIT
+repository-code: "https://github.com/rohanbalixz/zero-overlap-ppi"
+keywords:
+  - prediction-powered inference
+  - partial identification
+  - distribution shift
+  - remote sensing
+  - crop mapping
